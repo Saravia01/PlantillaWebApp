@@ -167,13 +167,3 @@ namespace reportesApi.Controllers
 
 // Hola
 // Moka-chan ga oshiete kureta iron'na mita me ni nareru apurina n datte dore dore 
-// Me cae como el pico Stuart Little. Parece broma wn, pero no. Stuart Little es un maldito conchetumare.
-//  ¿Una rata culia fue elegida entre niños reales en un orfanato y se supone que es un héroe? Y nisiquiera 
-// puedo decirte cuantas veces he visto un espacio de estacionamiento solo para girar la esquina y darme cuenta
-// de que la rata culia ya estaba estacionada alli en su auto culiao feo y enano. Se llevó a mi
-// mujer, mis niños, mi casa y me quito mi trabajo. Te juro que voy a exterminar a ese ratón culiao maldito
-// y lo voy a llevar al infierno conmigo. Stuart Little me cago la vida. El verano pasado, me acerque al ratón concheumare y le
-// pedí su autógrafo, porque mi hijo es un gran fan. El ratón de mrd me dio el autógrafo y me dijo que me quemara en el infierno. 
-// Más tarde, cuando le di a mi hijo el autógrafo, se echo a llorar y dijo que me odiaba. Resultó que el hijo de puta no escribió su autógrafo, 
-// el escribió "eres un pedazo de mierda, y me culie a tu mamita". Ahora estoy divorciado y planeando una gran demanda colectiva
-// contra el demonio blanco que arruinó mi vida. Tu tiempo casi ha terminado, Stuart. Todas las personas a las que has hecho daño se levantarán contra ti.
