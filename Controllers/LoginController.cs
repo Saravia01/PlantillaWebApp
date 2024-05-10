@@ -74,3 +74,6 @@ namespace reportesApi.Controllers
 
     }
 }
+
+
+//Fotosintesis
