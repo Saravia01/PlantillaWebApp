@@ -39,8 +39,4 @@ namespace reportesApi.Controllers
     }
 }
 
-//Holaaaaa//
-
-//Fernando no se baña//
-
-//Tania no se baña//
+//Hola Mundo//
