@@ -40,6 +40,4 @@ namespace reportesApi.Controllers
 }
 
 
-//saludos//
-
-//kjhuy//
+//practica3//
