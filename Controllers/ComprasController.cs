@@ -164,4 +164,6 @@ namespace reportesApi.Controllers
     }
 }
 
-// Hola
+// Hola 
+
+// e we pasame la traes lonche o vas a comprar?
