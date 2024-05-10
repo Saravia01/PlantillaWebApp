@@ -40,5 +40,11 @@ namespace reportesApi.Controllers
 }
 
 
+<<<<<<< Updated upstream
 //saludos//
 //Como esta tu dia?//
+=======
+//Fernando no se baña//
+
+//Anthony tiene caspa//
+>>>>>>> Stashed changes
