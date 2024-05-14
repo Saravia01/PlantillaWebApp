@@ -77,4 +77,4 @@ namespace reportesApi.Controllers
 
 
 //Fotosintesis
-//Formacion civica y etica 
+//Formacion civica y Etica 
