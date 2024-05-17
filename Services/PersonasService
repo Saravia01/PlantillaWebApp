@@ -17,26 +17,26 @@ namespace reportesApi.Services
              connection = settings.ConnectionString;
         }
 
-        public UsuarioModel Login(string user, string pass)
+        public PersonaModel Login(string user, string pass)
         {
             
-            UsuarioModel usuario = new UsuarioModel();
+            PersonaModel persona= new PersonaModel();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
                 ArrayList parametros = new ArrayList();
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.VarChar, Value = user });
                 parametros.Add(new SqlParameter { ParameterName = "@pPass", SqlDbType = SqlDbType.VarChar, Value = pass });
-                DataSet ds = dac.Fill("sp_login_pv", parametros);
+                DataSet ds = dac.Fill("Get_Personas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        usuario.Nombre = row["Nombre"].ToString();
-                        usuario.ApellidoMaterno= row["ApellidoMaterno"].ToString();
-                        usuario.ApellidoPaterno = int.Parse(row["ApellidoPaterno"].ToString());
-                        usuario.Direccion = row["Direccion"].ToString();
-                        usuario.Id = int.Parse(row["Id"].ToString());
+                        Persona.Nombre = row["Nombre"].ToString();
+                        Persona.ApellidoMaterno= row["ApellidoMaterno"].ToString();
+                        Persona.ApellidoPaterno = int.Parse(row["ApellidoPaterno"].ToString());
+                        Persona.Direccion = row["Direccion"].ToString();
+                        Persona.Id = int.Parse(row["Id"].ToString());
                         
                     
                     }

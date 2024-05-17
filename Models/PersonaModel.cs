@@ -1,5 +1,6 @@
 using System;
 
+
     public class PersonaModel
     {
         public int Id { get; set; }
@@ -9,4 +10,3 @@ using System;
         public float Direccion { get; set; }
       
     }
-   
