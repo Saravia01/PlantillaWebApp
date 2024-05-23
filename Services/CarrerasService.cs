@@ -25,8 +25,8 @@ namespace reportesApi.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave });
-                 parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave});
+                parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
                 dac.ExecuteNonQuery("InsertCarrerasABM", parametros);
                 return 1;
             }
@@ -38,7 +38,7 @@ namespace reportesApi.Services
             
         }
 
-        public List<CarrerasModel> GetCarrerasABM ()
+        public List<CarrerasModel> GetCarrerasABM()
         {
 
             
@@ -48,7 +48,7 @@ namespace reportesApi.Services
             try
             {
             
-                DataSet ds = dac.Fill("GetCarrerasABM", parametros);
+                DataSet ds = dac.Fill("GetCarreras", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -57,8 +57,9 @@ namespace reportesApi.Services
                             Id  = int.Parse(row["Id"].ToString()),
                             Nombre  = row["Nombre"].ToString(),
                             Clave = row["Clave"].ToString(),
-                            Estatus = int.Parse(row["Estatus"].ToString()),
                             Usuario = row["Usuario"].ToString(),
+                            Estatus = int.Parse(row["Estatus"].ToString()),
+
                         });
                     }
                 }
@@ -70,18 +71,18 @@ namespace reportesApi.Services
             }
 
         }
-          public int UpdateCarrerasABM(CarrerasModel carreras)
+
+         public int UpdateCarrerasABM(CarrerasModel carreras)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = carreras.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = 1 });
                 parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave });
-                parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.Int, Value = carreras.Estatus });
+                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value =carreras.Clave });
                 parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
-
+                parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.VarChar, Value = 1 });
                 dac.ExecuteNonQuery("UpdateCarrerasABM", parametros);
                 return 1;
             }
@@ -92,16 +93,15 @@ namespace reportesApi.Services
             }
             
         }
-        
-          public int DeleteCarrerasABM(CarrerasModel carreras)
+
+        public int DelateCarrerasABM(int Id)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = carreras.Id });
-               
-                dac.ExecuteNonQuery("DeleteCarrerasABM", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = Id });
+                dac.ExecuteNonQuery("DelateCarrerasABM", parametros);
                 return 1;
             }
             catch (Exception ex)
