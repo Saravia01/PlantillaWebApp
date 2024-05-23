@@ -30,12 +30,12 @@ namespace reportesApi.Services
              
         }
 
-        public List<PersonaModel> GetPersonas()
+        public List<GetPersonaModel> GetPersonas()
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            PersonaModel persona = new PersonaModel();
+            GetPersonaModel persona = new GetPersonaModel();
 
-            List<PersonaModel> lista = new List<PersonaModel>();
+            List<GetPersonaModel> lista = new List<GetPersonaModel>();
             try
             {
                 parametros = new ArrayList();
@@ -44,7 +44,8 @@ namespace reportesApi.Services
                 {
 
                   lista = ds.Tables[0].AsEnumerable()
-                    .Select(dataRow => new PersonaModel {
+                    .Select(dataRow => new GetPersonaModel {
+                        Id = int.Parse(dataRow["Id"].ToString()),
                         Nombre = dataRow["Nombre"].ToString(),
                         ApPaterno = dataRow["ApPaterno"].ToString(),
                         ApMaterno = dataRow["ApMaterno"].ToString(),
@@ -62,7 +63,7 @@ namespace reportesApi.Services
             return lista;
         }
 
-        public void InsertPersona(PersonaModel persona)
+        public void InsertPersona(InsertPersonaModel persona)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
@@ -70,7 +71,7 @@ namespace reportesApi.Services
             parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Nombre });
             parametros.Add(new SqlParameter { ParameterName = "@pApPaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApPaterno });
             parametros.Add(new SqlParameter { ParameterName = "@pApMaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApMaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pDirección", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
+            parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1 });
 
             try
@@ -83,16 +84,17 @@ namespace reportesApi.Services
             }
         }
 
-        public void UpdatePersona(PersonaModel persona)
+        public void UpdatePersona(UpdatePersonaModel persona)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
 
+            parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Id });
             parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Nombre });
             parametros.Add(new SqlParameter { ParameterName = "@pApPaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApPaterno });
             parametros.Add(new SqlParameter { ParameterName = "@pApMaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApMaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pDirección", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
-            parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = System.Data.SqlDbType.Int, Value = persona.Estatus == "Activo" ? 1 : 0 });
+            parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
+            parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Estatus.ToLower() == "activo" ? 1 : 0});
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1});
 
             try
