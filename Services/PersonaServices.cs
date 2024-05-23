@@ -55,7 +55,7 @@ namespace reportesApi.Services
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int) { Value = persona.ID });
+                        cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int) { Value = persona.Id });
                         cmd.Parameters.Add(new SqlParameter("@Nombre", SqlDbType.VarChar) { Value = persona.Nombre });
                         cmd.Parameters.Add(new SqlParameter("@ApPaterno", SqlDbType.VarChar) { Value = persona.ApPaterno });
                         cmd.Parameters.Add(new SqlParameter("@ApMaterno", SqlDbType.VarChar) { Value = persona.ApMaterno });
@@ -96,5 +96,48 @@ namespace reportesApi.Services
                 }
             }
         }
+
+        // El método GetPersonas debe estar fuera de los otros métodos, al mismo nivel
+        public List<PersonaModel> GetPersonas()
+        {
+            List<PersonaModel> personas = new List<PersonaModel>();
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_get_personas", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PersonaModel persona = new PersonaModel
+                                {
+                                    Id = Convert.ToInt32(reader["Id"]),
+                                    Nombre = reader["Nombre"].ToString(),
+                                    ApPaterno = reader["ApPaterno"].ToString(),
+                                    ApMaterno = reader["ApMaterno"].ToString(),
+                                    Direccion = reader["Direccion"].ToString(),
+                                    Estatus = Convert.ToInt32(reader["Estatus"])
+                                };
+
+                                personas.Add(persona);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener personas: " + ex.Message);
+                }
+            }
+
+            return personas;
+        }
     }
 }
+
