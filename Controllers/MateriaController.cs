@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class CarreraController: ControllerBase
+    public class MateriaController: ControllerBase
     {
    
-        private readonly CarreraService _carreraService;
-        private readonly ILogger<CarreraController> _logger;
+        private readonly MateriaService _materiaService;
+        private readonly ILogger<MateriaController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public CarreraController(CarreraService carreraService, ILogger<CarreraController> logger, IJwtAuthenticationService authService) {
-            _carreraService = carreraService;
+        public MateriaController(MateriaService materiaService, ILogger<MateriaController> logger, IJwtAuthenticationService authService) {
+            _materiaService = materiaService;
             _logger = logger;
        
             _authService = authService;
@@ -43,8 +43,8 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertCarrera")]
-        public IActionResult InsertCarreras([FromBody] InsertCarreraModel req )
+        [HttpPost("InsertMateria")]
+        public IActionResult InsertMaterias([FromBody] InsertMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -52,7 +52,7 @@ namespace reportesApi.Controllers
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Data cargada con exito" ;
-                _carreraService.InsertCarrera(req);
+                _materiaService.InsertMateria(req)
 
             }
 
@@ -64,8 +64,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetCarreras")]
-        public IActionResult GetCarreras()
+        [HttpGet("GetMaterias")]
+        public IActionResult GetMaterias()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -77,7 +77,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _carreraService.GetCarreras();
+                 var resultado = _materiaService.GetMaterias();
                  objectResponse.response = resultado;
             }
 
@@ -89,8 +89,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateCarrera")]
-        public IActionResult UpdateCarreras([FromBody] UpdateCarreraModel req )
+        [HttpPut("UpdateMateria")]
+        public IActionResult UpdateMaterias([FromBody] UpdateMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -98,7 +98,7 @@ namespace reportesApi.Controllers
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Data cargada con exito";
-                _carreraService.UpdateCarrera(req);
+                _materiaService.UpdateMateria(req)
 
                 
 
@@ -112,8 +112,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteCarrera")]
-        public IActionResult DeleteCarrera([FromBody] int id )
+        [HttpDelete("DeleteMateria")]
+        public IActionResult DeleteMateria([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -122,7 +122,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _carreraService.DeleteCarrera(id);
+                _materiaService.DeleteMateria(id);
 
             }
 
