@@ -162,8 +162,8 @@ namespace reportesApi.Controllers
         }
 
     }
+
 }
 
-// Hola 
-
-// e we pasame la traes lonche o vas a comprar?
+// Hola
+// Moka-chan ga oshiete kureta iron'na mita me ni nareru apurina n datte dore dore 
