@@ -16,12 +16,12 @@ namespace reportesApi.Controllers
     public class MateriasController:ControllerBase
     {
         private readonly MateriasService _MateriasService;
-        private readonly ILogger<CarrerasController> _logger;
+        private readonly ILogger<MateriasController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
 
 
-        public MateriasController(ILogger<CarrerasController> logger, IJwtAuthenticationService authService, MateriasService MateriasService)
+        public MateriasController(ILogger<MateriasController> logger, IJwtAuthenticationService authService, MateriasService MateriasService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _authService = authService;
