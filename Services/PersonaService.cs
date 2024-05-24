@@ -29,7 +29,7 @@ namespace reportesApi.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pApellidoPaterno", SqlDbType = SqlDbType.VarChar, Value = Persona.ApellidoPaterno });
                 parametros.Add(new SqlParameter { ParameterName = "@pApellidoMaterno", SqlDbType = SqlDbType.VarChar, Value = Persona.ApellidoMaterno });
                 parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = Persona.Direccion });
-                DataSet ds = dac.Fill("sp_insert_pv", parametros);
+                DataSet ds = dac.Fill("insert_personas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
