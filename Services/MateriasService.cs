@@ -8,26 +8,28 @@ using System.Collections.Generic;
 
 namespace reportesApi.Services
 {
-    public class CarrerasService
+    public class MateriasService
     {
         private  string connection;
         
         
-        public CarrerasService(IMarcatelDatabaseSetting settings)
+        public MateriasService(IMarcatelDatabaseSetting settings)
         {
              connection = settings.ConnectionString;
         }
 
-        public int InsertCarrerasABM(CarrerasModel carreras)
+        public int InsertMaterias(MateriasModel materias)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave});
-                parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
-                dac.ExecuteNonQuery("InsertCarrerasABM", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@NombreMateria", SqlDbType = SqlDbType.VarChar, Value = materias.NombreMateria });
+                parametros.Add(new SqlParameter { ParameterName = "@ClaveMateria", SqlDbType = SqlDbType.Int, Value = materias.ClaveMateria});
+                parametros.Add(new SqlParameter { ParameterName = "@IdCarrera", SqlDbType = SqlDbType.Int, Value = materias.IdCarrera });
+                parametros.Add(new SqlParameter { ParameterName = "@UsuarioRegistra", SqlDbType = SqlDbType.VarChar, Value = materias.UsuarioRegistra });
+
+                dac.ExecuteNonQuery("InsertMaterias", parametros);
                 return 1;
             }
             catch (Exception ex)
@@ -38,27 +40,30 @@ namespace reportesApi.Services
             
         }
 
-        public List<CarrerasModel> GetCarrerasABM()
+        public List<MateriasModel> GetMaterias()
         {
 
             
-            List<CarrerasModel> lista = new List<CarrerasModel>();
+            List<MateriasModel> lista = new List<MateriasModel>();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             ArrayList parametros = new ArrayList();
             try
             {
             
-                DataSet ds = dac.Fill("GetCarrerasABM", parametros);
+                DataSet ds = dac.Fill("GetMaterias", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new CarrerasModel{
+                        lista.Add(new MateriasModel{
                             Id  = int.Parse(row["Id"].ToString()),
-                            Nombre  = row["Nombre"].ToString(),
-                            Clave = row["Clave"].ToString(),
-                            Usuario = row["Usuario"].ToString(),
-                            Estatus = int.Parse(row["Estatus"].ToString()),
+                            NombreMateria  = row["NombreMateria"].ToString(),
+                            ClaveMateria  = int.Parse(row["ClaveMateria"].ToString()),
+                            IdCarrera = int.Parse(row["IdCarrera"].ToString()),
+                            Estatus  = int.Parse(row["Estatus"].ToString()),
+                            FechaRegistro  = row["FechaRegistro"].ToString(),
+                            UsuarioRegistra  = row["UsuarioRegistra"].ToString(),
+
 
                         });
                     }
@@ -72,17 +77,20 @@ namespace reportesApi.Services
 
         }
 
-         public int UpdateCarrerasABM(CarrerasModel carreras)
+         public int UpdateMaterias(MateriasModel materias)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = 1 });
-                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value =carreras.Clave });
-                parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@NombreMateria", SqlDbType = SqlDbType.VarChar, Value = materias.NombreMateria });
+                parametros.Add(new SqlParameter { ParameterName = "@ClaveMateria", SqlDbType = SqlDbType.VarChar, Value =materias.ClaveMateria });
+                parametros.Add(new SqlParameter { ParameterName = "@IdCarrera", SqlDbType = SqlDbType.VarChar, Value = materias.IdCarrera });
                 parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.VarChar, Value = 1 });
+                                parametros.Add(new SqlParameter { ParameterName = "@FechaRegistro", SqlDbType = SqlDbType.VarChar, Value = materias.FechaRegistro });
+                parametros.Add(new SqlParameter { ParameterName = "@UsuarioRegistra", SqlDbType = SqlDbType.VarChar, Value = materias.UsuarioRegistra });
+
                 dac.ExecuteNonQuery("UpdateCarrerasABM", parametros);
                 return 1;
             }
@@ -94,14 +102,14 @@ namespace reportesApi.Services
             
         }
 
-        public int DelateCarrerasABM(int Id)
+        public int DeleteMaterias(int Id)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = Id });
-                dac.ExecuteNonQuery("DelateCarrerasABM", parametros);
+                dac.ExecuteNonQuery("DeleteMaterias", parametros);
                 return 1;
             }
             catch (Exception ex)
