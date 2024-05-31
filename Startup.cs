@@ -36,6 +36,8 @@ namespace reportesApi
         {
             var key = "BusinessCaseMarcatelApiV2Tibs!*";
 
+            
+
             // requires using Microsoft.Extensions.Options
             services.Configure<MarcatelDatabaseSetting>(
             Configuration.GetSection(nameof(MarcatelDatabaseSetting)));
@@ -63,7 +65,9 @@ namespace reportesApi
             services.AddSingleton<LoginService>();
             services.AddSingleton<FuncionesExtraService>();
             services.AddSingleton<ComprasService>();
-
+            services.AddSingleton<CarreraService>();
+            services.AddSingleton<MateriasService>();
+            services.AddSingleton<PersonaService>();
 
             services.AddCors();
 
