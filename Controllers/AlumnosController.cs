@@ -16,7 +16,7 @@ namespace reportesApi.Controllers
     public class AlumnosController:ControllerBase
     {
         private readonly AlumnosService _AlumnosService;
-        private readonly ILogger<CarrerasController> _logger;
+        private readonly ILogger<AlumnosController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
 
