@@ -144,7 +144,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.DelateAlumnos(alumnos.Id);
+                var resultado = _AlumnosService.DeleteAlumnos(alumnos.Id);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
