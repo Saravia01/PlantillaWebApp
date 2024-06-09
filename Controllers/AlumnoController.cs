@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class PersonaController: ControllerBase
+    public class AlumnoController: ControllerBase
     {
    
-        private readonly PersonaService _personaService;
-        private readonly ILogger<PersonaController> _logger;
+        private readonly AlumnoService _AlumnoService;
+        private readonly ILogger<AlumnoController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public PersonaController(PersonaService personaService, ILogger<PersonaController> logger, IJwtAuthenticationService authService) {
-            _personaService = personaService;
+        public AlumnoController(AlumnoService AlumnoService, ILogger<AlumnoController> logger, IJwtAuthenticationService authService) {
+            _AlumnoService = AlumnoService;
             _logger = logger;
        
             _authService = authService;
@@ -43,16 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertPersonas")]
-        public IActionResult InsertPersonas([FromBody] InsertPersonaModel req )
+        [HttpPost("InsertAlumno")]
+        public IActionResult InsertAlumnos([FromBody] InsertAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _personaService.InsertPersona(req);
-
+                objectResponse.message = _AlumnoService.InsertAlumno(req);
 
             }
 
@@ -64,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetPersonas")]
-        public IActionResult GetPersonas()
+        [HttpGet("GetAlumnos")]
+        public IActionResult GetAlumnos()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -77,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _personaService.GetPersonas();
+                 var resultado = _AlumnoService.GetAlumnos();
                  objectResponse.response = resultado;
             }
 
@@ -89,17 +88,17 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdatePersonas")]
-        public IActionResult UpdatePersonas([FromBody] UpdatePersonaModel req )
+        [HttpPut("UpdateAlumno")]
+        public IActionResult UpdateAlumnos([FromBody] UpdateAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message =  _personaService.UpdatePersona(req);
+                objectResponse.message = _AlumnoService.UpdateAlumno(req);
 
-               
+                ;
 
             }
 
@@ -111,8 +110,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeletePersonas")]
-        public IActionResult DeletePersonas([FromBody] int id )
+        [HttpDelete("DeleteAlumno")]
+        public IActionResult DeleteAlumno([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -121,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _personaService.DeletePersona(id);
+                _AlumnoService.DeleteAlumno(id);
 
             }
 
