@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace reportesApi.Services
 {
-    public class CarrerasService
+    public class AlumnosService
     {
         private  string connection;
         
@@ -55,12 +55,11 @@ namespace reportesApi.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new CarrerasModel{
+                        lista.Add(new AlumnosModel{
                             Id  = int.Parse(row["Id"].ToString()),
                             Nombre  = row["Nombre"].ToString(),
                             ApellidoPaterno = row["ApellidoPaterno"].ToString(),
                             ApellidoMaterno = row["ApellidoMaterno"].ToString(),
-                            Matricula = row["Matricula"].ToString(),
                             Matricula = row["Matricula"].ToString(),
                             Direccion = row["Direccion"].ToString(),
                         });

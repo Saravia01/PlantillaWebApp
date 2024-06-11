@@ -13,26 +13,26 @@ using System.IO;
 namespace reportesApi.Controllers
 {
  [Route("api")]
-    public class AlumnosController:ControllerBase
+    public class CalificacionesController:ControllerBase
     {
-        private readonly AlumnosService _AlumnosService;
-        private readonly ILogger<AlumnosController> _logger;
+        private readonly CalificacionesService _CalificacionesService;
+        private readonly ILogger<CalificacionesController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
 
 
-        public AlumnosController(ILogger<AlumnosController> logger, IJwtAuthenticationService authService, AlumnosService AlumnosService)
+        public CalificacionesController(ILogger<CalificacionesController> logger, IJwtAuthenticationService authService, CalificacionesService CalificacionesService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _authService = authService;
         
 
-               _AlumnosService = AlumnosService;
+               _CalificacionesService = CalificacionesService;
         }
 
      
-         [HttpGet("GetAlumnos")]
-        public IActionResult GetAlumnos()
+         [HttpGet("GetCalificaciones")]
+        public IActionResult GetCalificaciones()
         {
 
 
@@ -46,7 +46,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.GetAlumnos();
+                var resultado = _CalificacionesService.GetCalificaciones();
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
 
         }
 
-         [HttpPost("InsertAlumnos")]
-        public IActionResult InsertAlumnos([FromBody] AlumnosModel alumnos)
+         [HttpPost("InsertCalificaciones")]
+        public IActionResult InsertCalificaciones([FromBody] CalificacionesModel calificacion)
         {
 
 
@@ -78,40 +78,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.InsertAlumnos(alumnos);
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-
-            return new JsonResult(objectResponse);
-
-        }
-
-        
-         [HttpPost("UpdateAlumnos")]
-        public IActionResult UpdateAlumnos([FromBody] AlumnosModel alumnos)
-        {
-
-
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-
-                var memory = new MemoryStream();
-                // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.UpdateAlumnos(alumnos);
+                var resultado = _CalificacionesService.InsertCalificaciones(calificacion);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
@@ -129,8 +96,8 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteAlumnos")]
-        public IActionResult DeleteAlumnos([FromBody] AlumnosModel alumnos)
+         [HttpPost("UpdateCalificaciones")]
+        public IActionResult UpdateCalificaciones([FromBody] CalificacionesModel calificacion)
         {
 
 
@@ -144,7 +111,40 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.DeleteAlumnos(alumnos.Id);
+                var resultado = _CalificacionesService.UpdateCalificaciones(calificacion);
+                objectResponse.response = resultado;
+          
+                return new JsonResult(objectResponse);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                objectResponse.message = ex.Message;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+        
+         [HttpPost("DeleteCalificaciones")]
+        public IActionResult DeleteCalificaciones([FromBody] CalificacionesModel calificacion)
+        {
+
+
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "data cargado con exito";
+
+
+                var memory = new MemoryStream();
+                // Llamando a la función y recibiendo los dos valores.
+                var resultado = _CalificacionesService.DeleteCalificaciones(calificacion.Id);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);

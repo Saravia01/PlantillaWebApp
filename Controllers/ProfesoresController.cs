@@ -13,26 +13,26 @@ using System.IO;
 namespace reportesApi.Controllers
 {
  [Route("api")]
-    public class AlumnosController:ControllerBase
+    public class ProfesoresController:ControllerBase
     {
-        private readonly AlumnosService _AlumnosService;
-        private readonly ILogger<AlumnosController> _logger;
+        private readonly ProfesoresService _ProfesoresService;
+        private readonly ILogger<ProfesoresController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
 
 
-        public AlumnosController(ILogger<AlumnosController> logger, IJwtAuthenticationService authService, AlumnosService AlumnosService)
+        public ProfesoresController(ILogger<ProfesoresController> logger, IJwtAuthenticationService authService, ProfesoresService ProfesoresService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _authService = authService;
         
 
-               _AlumnosService = AlumnosService;
+               _ProfesoresService = ProfesoresService;
         }
 
      
-         [HttpGet("GetAlumnos")]
-        public IActionResult GetAlumnos()
+         [HttpGet("GetProfesores")]
+        public IActionResult GetProfesores()
         {
 
 
@@ -46,7 +46,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.GetAlumnos();
+                var resultado = _ProfesoresService.GetProfesores();
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
 
         }
 
-         [HttpPost("InsertAlumnos")]
-        public IActionResult InsertAlumnos([FromBody] AlumnosModel alumnos)
+         [HttpPost("InsertProfesores")]
+        public IActionResult InsertProfesores([FromBody] ProfesoresModel profesor)
         {
 
 
@@ -78,40 +78,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.InsertAlumnos(alumnos);
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-
-            return new JsonResult(objectResponse);
-
-        }
-
-        
-         [HttpPost("UpdateAlumnos")]
-        public IActionResult UpdateAlumnos([FromBody] AlumnosModel alumnos)
-        {
-
-
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-
-                var memory = new MemoryStream();
-                // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.UpdateAlumnos(alumnos);
+                var resultado = _ProfesoresService.InsertProfesores(profesor);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
@@ -129,8 +96,8 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteAlumnos")]
-        public IActionResult DeleteAlumnos([FromBody] AlumnosModel alumnos)
+         [HttpPost("UpdateProfesores")]
+        public IActionResult UpdateProfesores([FromBody] ProfesoresModel profesor)
         {
 
 
@@ -144,7 +111,40 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.DeleteAlumnos(alumnos.Id);
+                var resultado = _ProfesoresService.UpdateProfesores(profesor);
+                objectResponse.response = resultado;
+          
+                return new JsonResult(objectResponse);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                objectResponse.message = ex.Message;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+        
+         [HttpPost("DeleteProfesores")]
+        public IActionResult DeleteProfesores([FromBody] ProfesoresModel profesores)
+        {
+
+
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "data cargado con exito";
+
+
+                var memory = new MemoryStream();
+                // Llamando a la función y recibiendo los dos valores.
+                var resultado = _ProfesoresService.DeleteProfesores(profesores.Id);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
