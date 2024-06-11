@@ -8,27 +8,25 @@ using System.Collections.Generic;
 
 namespace reportesApi.Services
 {
-    public class ProfesoresService
+    public class MateriasAlumnosService
     {
         private  string connection;
         
         
-        public ProfesoresService(IMarcatelDatabaseSetting settings)
+        public MateriasAlumnosService(IMarcatelDatabaseSetting settings)
         {
              connection = settings.ConnectionString;
         }
 
-        public int InsertProfesores(ProfesoresModel profesores)
+        public int InsertMateriasAlum(MateriasAlumnosModel materiasalum)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = profesores.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@ApPaterno", SqlDbType = SqlDbType.VarChar, Value = profesores.ApPaterno});
-                parametros.Add(new SqlParameter { ParameterName = "@ApMaterno", SqlDbType = SqlDbType.VarChar, Value = profesores.ApMaterno});
-                parametros.Add(new SqlParameter { ParameterName = "@Direccion", SqlDbType = SqlDbType.VarChar, Value = profesores.Direccion });
-                dac.ExecuteNonQuery("InsertProfesores", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@IdMaterias", SqlDbType = SqlDbType.VarChar, Value = materiasalum.IdMaterias });
+                parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = materiasalum.Matricula});
+                dac.ExecuteNonQuery("InsertMateriasAlum", parametros);
                 return 1;
             }
             catch (Exception ex)
@@ -39,27 +37,25 @@ namespace reportesApi.Services
             
         }
 
-        public List<ProfesoresModel> GetProfesores()
+        public List<MateriasAlumnosModel> GetMateriasAlum()
         {
 
             
-            List<ProfesoresModel> lista = new List<ProfesoresModel>();
+            List<MateriasAlumnosModel> lista = new List<MateriasAlumnosModel>();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             ArrayList parametros = new ArrayList();
             try
             {
             
-                DataSet ds = dac.Fill("GetProfesores", parametros);
+                DataSet ds = dac.Fill("GetMateriasAlum", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new ProfesoresModel{
+                        lista.Add(new MateriasAlumnosModel{
                             Id  = int.Parse(row["Id"].ToString()),
-                            Nombre  = row["Nombre"].ToString(),
-                            ApPaterno = row["ApPaterno"].ToString(),
-                            ApMaterno = row["ApMaterno"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
+                            IdMaterias  = int.Parse(row["IdMaterias"].ToString()),
+                            Matricula = row["Matricula"].ToString(),
                         });
                     }
                 }
@@ -72,18 +68,16 @@ namespace reportesApi.Services
 
         }
 
-         public int UpdateProfesores(ProfesoresModel profesor)
+         public int UpdateMateriasAlum(MateriasAlumnosModel materiasalum)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = 1 });
-                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = profesor.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@ApPaterno", SqlDbType = SqlDbType.VarChar, Value = profesor.ApPaterno });
-                parametros.Add(new SqlParameter { ParameterName = "@ApMaterno", SqlDbType = SqlDbType.VarChar, Value = profesor.ApMaterno });
-                parametros.Add(new SqlParameter { ParameterName = "@Direccion", SqlDbType = SqlDbType.VarChar, Value = profesor.Direccion});
-                dac.ExecuteNonQuery("UpdateProfesores", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@IdMaterias", SqlDbType = SqlDbType.Int, Value = materiasalum.IdMaterias });
+                parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = materiasalum.Matricula });
+                dac.ExecuteNonQuery("UpdateMateriasAlum", parametros);
                 return 1;
             }
             catch (Exception ex)
@@ -94,14 +88,14 @@ namespace reportesApi.Services
             
         }
 
-        public int DeleteProfesores(int Id)
+        public int DeleteMateriasAlum(int Id)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = Id });
-                dac.ExecuteNonQuery("DeleteProfesores", parametros);
+                dac.ExecuteNonQuery("DeleteMateriasAlum", parametros);
                 return 1;
             }
             catch (Exception ex)

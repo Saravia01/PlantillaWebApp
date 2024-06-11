@@ -72,6 +72,7 @@ namespace reportesApi
             services.AddSingleton<GruposService>();
             services.AddSingleton<GruposAlumnosService>();
             services.AddSingleton<MateriasService>();
+            services.AddSingleton<MateriasAlumnosService>();
 
 
             services.AddCors();
