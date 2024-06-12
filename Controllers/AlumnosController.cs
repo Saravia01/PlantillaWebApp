@@ -1,44 +1,38 @@
 using System;
-using Microsoft.AspNetCore.Mvc;
-using reportesApi.Services;
-using reportesApi.Utilities;
-using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
 using reportesApi.Models;
+using reportesApi.Services;
+using Microsoft.AspNetCore.Authorization;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Net;
 using reportesApi.Helpers;
-using Newtonsoft.Json;
+using System.Net;
 using System.IO;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using Microsoft.AspNetCore.Hosting;
-using reportesApi.Models.Compras;
-
-
 
 namespace reportesApi.Controllers
 {
-   
-    [Route("Api")]
-    public class AlumnosController: ControllerBase
+ [Route("api")]
+    public class AlumnosController:ControllerBase
     {
-   
         private readonly AlumnosService _AlumnosService;
-        private readonly ILogger<PersonasController> _logger;
+        private readonly ILogger<AlumnosController> _logger;
+  
         private readonly IJwtAuthenticationService _authService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+
+
+        public AlumnosController(ILogger<AlumnosController> logger, IJwtAuthenticationService authService, AlumnosService AlumnosService)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _authService = authService;
         
 
-        Encrypt enc = new Encrypt();
-
-        public AlumnosController(AlumnosService AlumnosService, ILogger<AlumnosController> logger, IJwtAuthenticationService authService) {
-            _AlumnosService = AlumnosService;
-            _logger = logger;
-            _authService = authService;
-            
+               _AlumnosService = AlumnosService;
         }
-        [HttpGet("GetAlumnos")]
-        public IActionResult GetAlumnos( )
+
+     
+         [HttpGet("GetAlumnos")]
+        public IActionResult GetAlumnos()
         {
 
 
@@ -54,9 +48,9 @@ namespace reportesApi.Controllers
                 // Llamando a la función y recibiendo los dos valores.
                 var resultado = _AlumnosService.GetAlumnos();
                 objectResponse.response = resultado;
+          
                 return new JsonResult(objectResponse);
-             
-            
+
             }
 
             catch (System.Exception ex)
@@ -86,9 +80,9 @@ namespace reportesApi.Controllers
                 // Llamando a la función y recibiendo los dos valores.
                 var resultado = _AlumnosService.InsertAlumnos(alumnos);
                 objectResponse.response = resultado;
+          
                 return new JsonResult(objectResponse);
-             
-            
+
             }
 
             catch (System.Exception ex)
@@ -101,8 +95,9 @@ namespace reportesApi.Controllers
 
         }
 
+        
          [HttpPost("UpdateAlumnos")]
-        public IActionResult UpdateAlumnos([FromBody] AlumnosModel alumnos )
+        public IActionResult UpdateAlumnos([FromBody] AlumnosModel alumnos)
         {
 
 
@@ -118,9 +113,9 @@ namespace reportesApi.Controllers
                 // Llamando a la función y recibiendo los dos valores.
                 var resultado = _AlumnosService.UpdateAlumnos(alumnos);
                 objectResponse.response = resultado;
+          
                 return new JsonResult(objectResponse);
-             
-            
+
             }
 
             catch (System.Exception ex)
@@ -133,8 +128,9 @@ namespace reportesApi.Controllers
 
         }
 
-         [HttpGet("DeleteAlumnos")]
-        public IActionResult DeleteAlumnos([FromBody] AlumnosModel alumnos )
+        
+         [HttpPost("DeleteAlumnos")]
+        public IActionResult DeleteAlumnos([FromBody] AlumnosModel alumnos)
         {
 
 
@@ -150,9 +146,9 @@ namespace reportesApi.Controllers
                 // Llamando a la función y recibiendo los dos valores.
                 var resultado = _AlumnosService.DeleteAlumnos(alumnos.Id);
                 objectResponse.response = resultado;
+          
                 return new JsonResult(objectResponse);
-             
-            
+
             }
 
             catch (System.Exception ex)
@@ -164,9 +160,5 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
 
         }
-
     }
-    
-
- 
 }
