@@ -15,14 +15,14 @@ using System.Linq;
 using System.Text;
 namespace reportesApi.Services
 {
-    public class PersonaService
+    public class GrupoAlumnoService
     {
         private  string connection;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private ArrayList parametros = new ArrayList();
 
 
-        public PersonaService(IMarcatelDatabaseSetting settings, IWebHostEnvironment webHostEnvironment)
+        public GrupoAlumnoService(IMarcatelDatabaseSetting settings, IWebHostEnvironment webHostEnvironment)
         {
              connection = settings.ConnectionString;
 
@@ -30,26 +30,25 @@ namespace reportesApi.Services
              
         }
 
-        public List<GetPersonaModel> GetPersonas()
+        public List<GetGrupoAlumnoModel> GetGrupoAlumno()
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            GetPersonaModel persona = new GetPersonaModel();
+            GetGrupoAlumnoModel persona = new GetGrupoAlumnoModel();
 
-            List<GetPersonaModel> lista = new List<GetPersonaModel>();
+            List<GetGrupoAlumnoModel> lista = new List<GetGrupoAlumnoModel>();
             try
             {
                 parametros = new ArrayList();
-                DataSet ds = dac.Fill("sp_get_personas", parametros);
+                DataSet ds = dac.Fill("sp_get_gruposalumnos", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
 
                   lista = ds.Tables[0].AsEnumerable()
-                    .Select(dataRow => new GetPersonaModel {
+                    .Select(dataRow => new GetGrupoAlumnoModel {
                         Id = int.Parse(dataRow["Id"].ToString()),
-                        Nombre = dataRow["Nombre"].ToString(),
-                        ApPaterno = dataRow["ApPaterno"].ToString(),
-                        ApMaterno = dataRow["ApMaterno"].ToString(),
-                        Direccion = dataRow["Direccion"].ToString(),
+                        Grupo = dataRow["Grupo"].ToString(),
+                        Matricula = dataRow["Matricula"].ToString(),
+                        Alumno = dataRow["Alumno"].ToString(),
                         Estatus = dataRow["Estatus"].ToString(),
                         UsuarioRegistra = dataRow["UsuarioRegistra"].ToString(),
                         FechaRegistro= dataRow["FechaRegistro"].ToString()
@@ -63,20 +62,19 @@ namespace reportesApi.Services
             return lista;
         }
 
-        public string InsertPersona(InsertPersonaModel persona)
+        public string InsertGrupoAlumno(InsertGrupoAlumnoModel GrupoAlumno)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
-            string mensaje; 
-            parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Nombre });
-            parametros.Add(new SqlParameter { ParameterName = "@pApPaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApPaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pApMaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApMaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
+            string mensaje;
+
+            parametros.Add(new SqlParameter { ParameterName = "@pIdGrupo", SqlDbType = System.Data.SqlDbType.Int, Value = GrupoAlumno.IdGrupo });
+            parametros.Add(new SqlParameter { ParameterName = "@pMatricula", SqlDbType = System.Data.SqlDbType.VarChar, Value = GrupoAlumno.Matricula});
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1 });
 
             try
             {
-                DataSet ds = dac.Fill("sp_insert_personas", parametros);
+                DataSet ds = dac.Fill("sp_insert_gruposalumnos", parametros);
                 mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
             }
             catch (Exception ex)
@@ -86,41 +84,43 @@ namespace reportesApi.Services
             return mensaje;
         }
 
-        public string UpdatePersona(UpdatePersonaModel persona)
+        public string UpdateGrupoAlumno(UpdateGrupoAlumnoModel GrupoAlumno)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
-            string mensaje; 
+            string mensaje;
 
-            parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Id });
-            parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Nombre });
-            parametros.Add(new SqlParameter { ParameterName = "@pApPaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApPaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pApMaterno", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.ApMaterno });
-            parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Direccion });
-            parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = System.Data.SqlDbType.VarChar, Value = persona.Estatus.ToLower() == "activo" ? 1 : 0});
+
+            parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = System.Data.SqlDbType.VarChar, Value = GrupoAlumno.Id });
+            parametros.Add(new SqlParameter { ParameterName = "@pIdGrupo", SqlDbType = System.Data.SqlDbType.Int, Value = GrupoAlumno.IdGrupo });
+            parametros.Add(new SqlParameter { ParameterName = "@pMatricula", SqlDbType = System.Data.SqlDbType.VarChar, Value = GrupoAlumno.Matricula});
+            parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = System.Data.SqlDbType.VarChar, Value = GrupoAlumno.Estatus.ToLower() == "activo" ? 1 : 0});
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1});
 
             try
             {
-                DataSet ds = dac.Fill("sp_update_persona", parametros);
+                DataSet ds = dac.Fill("sp_update_gruposalumnos", parametros);
                 mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
             return mensaje;
         }
 
-        public void DeletePersona(int id)
+        public void DeleteGrupoAlumno(int id)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
-            parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = id });
+            parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = id });
+            parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1});
+
 
             try
             {
-                dac.ExecuteNonQuery("sp_delete_persona", parametros);
+                dac.ExecuteNonQuery("sp_delete_gruposalumnos", parametros);
             }
             catch (Exception ex)
             {

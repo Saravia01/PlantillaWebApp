@@ -21,7 +21,7 @@ namespace reportesApi.Controllers
     public class MateriaController: ControllerBase
     {
    
-        private readonly MateriaService _materiaService;
+        private readonly MateriaService _MateriaService;
         private readonly ILogger<MateriaController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public MateriaController(MateriaService materiaService, ILogger<MateriaController> logger, IJwtAuthenticationService authService) {
-            _materiaService = materiaService;
+        public MateriaController(MateriaService MateriaService, ILogger<MateriaController> logger, IJwtAuthenticationService authService) {
+            _MateriaService = MateriaService;
             _logger = logger;
        
             _authService = authService;
@@ -51,8 +51,7 @@ namespace reportesApi.Controllers
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Data cargada con exito" ;
-                _materiaService.InsertMateria(req)
+                objectResponse.message = _MateriaService.InsertMateria(req);
 
             }
 
@@ -77,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _materiaService.GetMaterias();
+                 var resultado = _MateriaService.GetMaterias();
                  objectResponse.response = resultado;
             }
 
@@ -97,10 +96,9 @@ namespace reportesApi.Controllers
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Data cargada con exito";
-                _materiaService.UpdateMateria(req)
+                objectResponse.message = _MateriaService.UpdateMateria(req);
 
-                
+                ;
 
             }
 
@@ -122,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _materiaService.DeleteMateria(id);
+                _MateriaService.DeleteMateria(id);
 
             }
 

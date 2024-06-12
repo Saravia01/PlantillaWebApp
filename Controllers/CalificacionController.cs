@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class PersonaController: ControllerBase
+    public class CalificacionController: ControllerBase
     {
    
-        private readonly PersonaService _personaService;
-        private readonly ILogger<PersonaController> _logger;
+        private readonly CalificacionService _CalificacionService;
+        private readonly ILogger<CalificacionController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public PersonaController(PersonaService personaService, ILogger<PersonaController> logger, IJwtAuthenticationService authService) {
-            _personaService = personaService;
+        public CalificacionController(CalificacionService CalificacionService, ILogger<CalificacionController> logger, IJwtAuthenticationService authService) {
+            _CalificacionService = CalificacionService;
             _logger = logger;
        
             _authService = authService;
@@ -43,16 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertPersonas")]
-        public IActionResult InsertPersonas([FromBody] InsertPersonaModel req )
+        [HttpPost("InsertCalificacion")]
+        public IActionResult InsertCalificacions([FromBody] InsertCalificacionModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _personaService.InsertPersona(req);
-
+                objectResponse.message = _CalificacionService.InsertCalificacion(req);
 
             }
 
@@ -64,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetPersonas")]
-        public IActionResult GetPersonas()
+        [HttpGet("GetCalificaciones")]
+        public IActionResult GetCalificacions()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -77,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _personaService.GetPersonas();
+                 var resultado = _CalificacionService.GetCalificacions();
                  objectResponse.response = resultado;
             }
 
@@ -89,17 +88,17 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdatePersonas")]
-        public IActionResult UpdatePersonas([FromBody] UpdatePersonaModel req )
+        [HttpPut("UpdateCalificacion")]
+        public IActionResult UpdateCalificacions([FromBody] UpdateCalificacionModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message =  _personaService.UpdatePersona(req);
+                objectResponse.message = _CalificacionService.UpdateCalificacion(req);
 
-               
+                ;
 
             }
 
@@ -111,8 +110,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeletePersonas")]
-        public IActionResult DeletePersonas([FromBody] int id )
+        [HttpDelete("DeleteCalificacion")]
+        public IActionResult DeleteCalificacion([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -121,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _personaService.DeletePersona(id);
+                _CalificacionService.DeleteCalificacion(id);
 
             }
 
