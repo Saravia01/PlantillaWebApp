@@ -79,11 +79,7 @@ namespace reportesApi.Services
             return lista;
         }
 
-<<<<<<< HEAD:Services/CarrerasService.cs
-        public List<CarrerasModel> GetCarreras()
-=======
         public string InsertCarrera(InsertCarreraModel carrera)
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
@@ -102,13 +98,13 @@ namespace reportesApi.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new CarrerasModel{
+                        lista.Add(new CarrerasModel){
                             Id  = int.Parse(row["Id"].ToString()),
                             Nombre  = row["Nombre"].ToString(),
                             Clave = row["Clave"].ToString(),
                             Usuario = row["Usuario"].ToString(),
                             Estatus = int.Parse(row["Estatus"].ToString()),
-=======
+ 
                 DataSet ds = dac.Fill("sp_insert_carrera", parametros);
                 mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
             }
@@ -118,7 +114,7 @@ namespace reportesApi.Services
             }
             return mensaje;
         }
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
+
 
         public string UpdateCarrera(UpdateCarreraModel carrera)
         {
