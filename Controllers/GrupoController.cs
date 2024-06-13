@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class CarreraController: ControllerBase
+    public class GrupoController: ControllerBase
     {
    
-        private readonly CarreraService _carreraService;
-        private readonly ILogger<CarreraController> _logger;
+        private readonly GrupoService _GrupoService;
+        private readonly ILogger<GrupoController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public CarreraController(CarreraService carreraService, ILogger<CarreraController> logger, IJwtAuthenticationService authService) {
-            _carreraService = carreraService;
+        public GrupoController(GrupoService GrupoService, ILogger<GrupoController> logger, IJwtAuthenticationService authService) {
+            _GrupoService = GrupoService;
             _logger = logger;
        
             _authService = authService;
@@ -43,15 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertCarrera")]
-        public IActionResult InsertCarreras([FromBody] InsertCarreraModel req )
+        [HttpPost("InsertGrupo")]
+        public IActionResult InsertGrupos([FromBody] InsertGrupoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.InsertCarrera(req);
+                objectResponse.message = _GrupoService.InsertGrupo(req);
 
             }
 
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetCarreras")]
-        public IActionResult GetCarreras()
+        [HttpGet("GetGrupos")]
+        public IActionResult GetGrupos()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -76,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _carreraService.GetCarreras();
+                 var resultado = _GrupoService.GetGrupos();
                  objectResponse.response = resultado;
             }
 
@@ -88,15 +88,15 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateCarrera")]
-        public IActionResult UpdateCarreras([FromBody] UpdateCarreraModel req )
+        [HttpPut("UpdateGrupo")]
+        public IActionResult UpdateGrupos([FromBody] UpdateGrupoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.UpdateCarrera(req);
+                objectResponse.message = _GrupoService.UpdateGrupo(req);
 
                 ;
 
@@ -110,8 +110,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteCarrera")]
-        public IActionResult DeleteCarrera([FromBody] int id )
+        [HttpDelete("DeleteGrupo")]
+        public IActionResult DeleteGrupo([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -120,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _carreraService.DeleteCarrera(id);
+                _GrupoService.DeleteGrupo(id);
 
             }
 

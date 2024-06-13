@@ -99,7 +99,7 @@ namespace reportesApi.Services
             
         }
 
-        public int DelateMaterias(int Id)
+        public int DelateCarreras(int Id)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);

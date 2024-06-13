@@ -44,12 +44,31 @@ namespace reportesApi.Controllers
                 objectResponse.message = "data cargado con exito";
 
 
-                var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _PersonaService.GetPersonas();
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
+                
+                 var resultado = _personaService.GetPersonas();
+                 objectResponse.response = resultado;
+            }
+
+            catch (System.Exception ex)
+            {
+                objectResponse.message = ex.Message;
+            }
+
+            return new JsonResult(objectResponse);
+        }
+
+        [HttpPut("UpdatePersonas")]
+        public IActionResult UpdatePersonas([FromBody] UpdatePersonaModel req )
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message =  _personaService.UpdatePersona(req);
+
+               
 
             }
 
@@ -58,16 +77,12 @@ namespace reportesApi.Controllers
                 objectResponse.message = ex.Message;
             }
 
-
             return new JsonResult(objectResponse);
-
         }
 
-         [HttpPost("InsertPersonas")]
-        public IActionResult InsertPersonas([FromBody] PersonaModel persona)
+        [HttpDelete("DeletePersonas")]
+        public IActionResult DeletePersonas([FromBody] int id )
         {
-
-
             var objectResponse = Helper.GetStructResponse();
             try
             {
@@ -75,13 +90,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-
-                var memory = new MemoryStream();
-                // Llamando a la función y recibiendo los dos valores.
-                var resultado = _PersonaService.InsertPersonas(persona);
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
+                _personaService.DeletePersona(id);
 
             }
 
@@ -90,78 +99,7 @@ namespace reportesApi.Controllers
                 objectResponse.message = ex.Message;
             }
 
-
             return new JsonResult(objectResponse);
-
-        }
-
-        
-         [HttpPost("UpdatePersonas")]
-        public IActionResult UpdatePersonas([FromBody] PersonaModel persona)
-        {
-
-
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-
-                var memory = new MemoryStream();
-                // Llamando a la función y recibiendo los dos valores.
-                var resultado = _PersonaService.UpdatePersonas(persona);
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-
-            return new JsonResult(objectResponse);
-
-        }
-
-        
-         [HttpPost("DelatePersona")]
-        public IActionResult DelatePersona([FromBody] PersonaModel persona)
-        {
-
-
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-
-                var memory = new MemoryStream();
-                // Llamando a la función y recibiendo los dos valores.
-                var resultado = _PersonaService.DelatePersona(persona);
-                objectResponse.response = resultado;
-          
-                return new JsonResult(objectResponse);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-
-            return new JsonResult(objectResponse);
-
         }
     }
 }
-
-
-

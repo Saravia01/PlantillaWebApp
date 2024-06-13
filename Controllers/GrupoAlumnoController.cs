@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class CarreraController: ControllerBase
+    public class GrupoAlumnoController: ControllerBase
     {
    
-        private readonly CarreraService _carreraService;
-        private readonly ILogger<CarreraController> _logger;
+        private readonly GrupoAlumnoService _GrupoAlumnoService;
+        private readonly ILogger<GrupoAlumnoController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public CarreraController(CarreraService carreraService, ILogger<CarreraController> logger, IJwtAuthenticationService authService) {
-            _carreraService = carreraService;
+        public GrupoAlumnoController(GrupoAlumnoService GrupoAlumnoService, ILogger<GrupoAlumnoController> logger, IJwtAuthenticationService authService) {
+            _GrupoAlumnoService = GrupoAlumnoService;
             _logger = logger;
        
             _authService = authService;
@@ -43,15 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertCarrera")]
-        public IActionResult InsertCarreras([FromBody] InsertCarreraModel req )
+        [HttpPost("InsertGrupoAlumno")]
+        public IActionResult InsertGrupoAlumno([FromBody] InsertGrupoAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.InsertCarrera(req);
+                objectResponse.message = _GrupoAlumnoService.InsertGrupoAlumno(req);
 
             }
 
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetCarreras")]
-        public IActionResult GetCarreras()
+        [HttpGet("GetGruposAlumnos")]
+        public IActionResult GetGruposAlumnos()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -76,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _carreraService.GetCarreras();
+                 var resultado = _GrupoAlumnoService.GetGrupoAlumno();
                  objectResponse.response = resultado;
             }
 
@@ -88,15 +88,15 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateCarrera")]
-        public IActionResult UpdateCarreras([FromBody] UpdateCarreraModel req )
+        [HttpPut("UpdateGruposAlumnos")]
+        public IActionResult UpdateGruposAlumnos([FromBody] UpdateGrupoAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.UpdateCarrera(req);
+                objectResponse.message = _GrupoAlumnoService.UpdateGrupoAlumno(req);
 
                 ;
 
@@ -110,8 +110,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteCarrera")]
-        public IActionResult DeleteCarrera([FromBody] int id )
+        [HttpDelete("DeleteGrupoAlumno")]
+        public IActionResult DeleteGrupoAlumno([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -120,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _carreraService.DeleteCarrera(id);
+                _GrupoAlumnoService.DeleteGrupoAlumno(id);
 
             }
 

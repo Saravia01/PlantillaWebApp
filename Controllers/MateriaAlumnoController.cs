@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class CarreraController: ControllerBase
+    public class MateriaAlumnoController: ControllerBase
     {
    
-        private readonly CarreraService _carreraService;
-        private readonly ILogger<CarreraController> _logger;
+        private readonly MateriaAlumnoService _MateriaAlumnoService;
+        private readonly ILogger<MateriaAlumnoController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public CarreraController(CarreraService carreraService, ILogger<CarreraController> logger, IJwtAuthenticationService authService) {
-            _carreraService = carreraService;
+        public MateriaAlumnoController(MateriaAlumnoService MateriaAlumnoService, ILogger<MateriaAlumnoController> logger, IJwtAuthenticationService authService) {
+            _MateriaAlumnoService = MateriaAlumnoService;
             _logger = logger;
        
             _authService = authService;
@@ -43,15 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertCarrera")]
-        public IActionResult InsertCarreras([FromBody] InsertCarreraModel req )
+        [HttpPost("InsertMateriaAlumno")]
+        public IActionResult InsertMateriaAlumno([FromBody] InsertMateriaAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.InsertCarrera(req);
+                objectResponse.message = _MateriaAlumnoService.InsertMateriaAlumno(req);
 
             }
 
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetCarreras")]
-        public IActionResult GetCarreras()
+        [HttpGet("GetMateriasAlumnos")]
+        public IActionResult GetMateriasAlumnos()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -76,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _carreraService.GetCarreras();
+                 var resultado = _MateriaAlumnoService.GetMateriaAlumno();
                  objectResponse.response = resultado;
             }
 
@@ -88,15 +88,15 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateCarrera")]
-        public IActionResult UpdateCarreras([FromBody] UpdateCarreraModel req )
+        [HttpPut("UpdateMateriasAlumnos")]
+        public IActionResult UpdateMateriasAlumnos([FromBody] UpdateMateriaAlumnoModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.UpdateCarrera(req);
+                objectResponse.message = _MateriaAlumnoService.UpdateMateriaAlumno(req);
 
                 ;
 
@@ -110,8 +110,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteCarrera")]
-        public IActionResult DeleteCarrera([FromBody] int id )
+        [HttpDelete("DeleteMateriaAlumno")]
+        public IActionResult DeleteMateriaAlumno([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -120,7 +120,7 @@ namespace reportesApi.Controllers
                 objectResponse.success = true;
                 objectResponse.message = "data cargado con exito";
 
-                _carreraService.DeleteCarrera(id);
+                _MateriaAlumnoService.DeleteMateriaAlumno(id);
 
             }
 
