@@ -46,7 +46,7 @@ namespace reportesApi.Services
                   lista = ds.Tables[0].AsEnumerable()
                     .Select(dataRow => new GetCarreraModel {
                         Id = int.Parse(dataRow["Id"].ToString()),
-                        NombreCarrera = dataRow["NombreCarrera"].ToString(),
+                        NombreCarrera = dataRow["Carrera"].ToString(),
                         Abreviatura = dataRow["Abreviatura"].ToString(),
                         Estatus = dataRow["Estatus"].ToString(),
                         UsuarioRegistra = dataRow["UsuarioRegistra"].ToString(),
@@ -67,14 +67,14 @@ namespace reportesApi.Services
             parametros = new ArrayList();
             string mensaje;
 
-            parametros.Add(new SqlParameter { ParameterName = "@pNombreCarrera", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.NombreCarrera });
+            parametros.Add(new SqlParameter { ParameterName = "@pCarrera", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.NombreCarrera });
+           
             parametros.Add(new SqlParameter { ParameterName = "@pAbreviatura", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.Abreviatura });
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1 });
 
             try
             {
-                DataSet ds = dac.Fill("sp_insert_carrera", parametros);
-                mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
+                dac.ExecuteNonQuery("sp_insert_carreras", parametros);
             }
             catch (Exception ex)
             {
@@ -91,15 +91,15 @@ namespace reportesApi.Services
 
 
             parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.Id });
-            parametros.Add(new SqlParameter { ParameterName = "@pNombreCarrera", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.NombreCarrera });
+            parametros.Add(new SqlParameter { ParameterName = "@pCarrera", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.NombreCarrera });
             parametros.Add(new SqlParameter { ParameterName = "@pAbreviatura", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.Abreviatura });
             parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = System.Data.SqlDbType.VarChar, Value = carrera.Estatus.ToLower() == "activo" ? 1 : 0});
             parametros.Add(new SqlParameter { ParameterName = "@pUsuarioRegistra", SqlDbType = System.Data.SqlDbType.Int, Value = 1});
 
             try
             {
-                DataSet ds = dac.Fill("sp_update_carreras", parametros);
-                mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
+                dac.ExecuteNonQuery("sp_update_carreras", parametros);
+               
             }
             catch (Exception ex)
             {
