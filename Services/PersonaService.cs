@@ -38,10 +38,50 @@ namespace reportesApi.Services
             List<GetPersonaModel> lista = new List<GetPersonaModel>();
             try
             {
+<<<<<<< Updated upstream
                 parametros = new ArrayList();
                 DataSet ds = dac.Fill("sp_get_personas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
+=======
+                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = personas.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@APPaterno", SqlDbType = SqlDbType.VarChar, Value = personas.APPaterno });
+                parametros.Add(new SqlParameter { ParameterName = "@APMaterno", SqlDbType = SqlDbType.VarChar, Value = personas.APMaterno });
+                parametros.Add(new SqlParameter { ParameterName = "@Direccion", SqlDbType = SqlDbType.VarChar, Value = personas.Direccion });
+                dac.ExecuteNonQuery("Insertpersonas", parametros);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return 0;
+            }
+            
+        }
+
+        public List<PersonaModel> GetPersonas()
+        {
+
+            
+            List<PersonaModel> lista = new List<PersonaModel>();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            ArrayList parametros = new ArrayList();
+            try
+            {
+            
+                DataSet ds = dac.Fill("GetPersonas", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new PersonaModel{
+                            Id  = int.Parse(row["Id"].ToString()),
+                            Nombre  = row["Nombre"].ToString(),
+                            APPaterno = row["APPaterno"].ToString(),
+                            APMaterno = row["APMaterno"].ToString(),
+                            Direccion = row["Direccion"].ToString(),
+                            Estatus = int.Parse(row["Estatus"].ToString()),
+>>>>>>> Stashed changes
 
                   lista = ds.Tables[0].AsEnumerable()
                     .Select(dataRow => new GetPersonaModel {
@@ -76,8 +116,19 @@ namespace reportesApi.Services
 
             try
             {
+<<<<<<< Updated upstream
                 DataSet ds = dac.Fill("sp_insert_personas", parametros);
                 mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
+=======
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = 1 });
+                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = personas.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@APPaterno", SqlDbType = SqlDbType.VarChar, Value = personas.APPaterno });
+                parametros.Add(new SqlParameter { ParameterName = "@APMaterno", SqlDbType = SqlDbType.VarChar, Value = personas.APMaterno });
+                parametros.Add(new SqlParameter { ParameterName = "@Direccion", SqlDbType = SqlDbType.VarChar, Value = personas.Direccion });
+                parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.Int, Value = 1 });
+                dac.ExecuteNonQuery("sp_update_personas", parametros);
+                return 1;
+>>>>>>> Stashed changes
             }
             catch (Exception ex)
             {

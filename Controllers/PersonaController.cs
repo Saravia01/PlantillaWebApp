@@ -1,4 +1,11 @@
 using System;
+<<<<<<< Updated upstream
+=======
+using System.Net.Http;
+using reportesApi.Models;
+using reportesApi.Services;
+using Microsoft.AspNetCore.Authorization;
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Mvc;
 using reportesApi.Services;
 using reportesApi.Utilities;
