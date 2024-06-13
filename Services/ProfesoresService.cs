@@ -78,7 +78,7 @@ namespace reportesApi.Services
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = 1 });
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = profesor.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = profesor.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@ApPaterno", SqlDbType = SqlDbType.VarChar, Value = profesor.ApPaterno });
                 parametros.Add(new SqlParameter { ParameterName = "@ApMaterno", SqlDbType = SqlDbType.VarChar, Value = profesor.ApMaterno });

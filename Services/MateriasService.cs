@@ -82,10 +82,11 @@ namespace reportesApi.Services
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = 1 });
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = materias.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@NombreMateria", SqlDbType = SqlDbType.VarChar, Value = materias.NombreMateria });
                 parametros.Add(new SqlParameter { ParameterName = "@ClaveMateria", SqlDbType = SqlDbType.VarChar, Value = materias.ClaveMateria });
                 parametros.Add(new SqlParameter { ParameterName = "@UsuarioRegistra", SqlDbType = SqlDbType.VarChar, Value = materias.UsuarioRegistra });
+                parametros.Add(new SqlParameter { ParameterName = "@FechaRegistro", SqlDbType = SqlDbType.VarChar, Value = materias.FechaRegistro });
                 parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.VarChar, Value = 1 });
                 parametros.Add(new SqlParameter { ParameterName = "@IdCarrera", SqlDbType = SqlDbType.VarChar, Value = materias.IdCarrera });
                 dac.ExecuteNonQuery("UpdateMaterias", parametros);

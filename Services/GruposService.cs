@@ -74,7 +74,7 @@ namespace reportesApi.Services
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = 1 });
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = grupos.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.Int, Value = grupos.Clave });
                 parametros.Add(new SqlParameter { ParameterName = "@NombreGrupo", SqlDbType = SqlDbType.VarChar, Value = grupos.NombreGrupo });
                 dac.ExecuteNonQuery("UpdateGrupos", parametros);
