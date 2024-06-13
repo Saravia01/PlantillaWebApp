@@ -82,9 +82,9 @@ namespace reportesApi.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = calificaciones.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@IdMateria", SqlDbType = SqlDbType.Int, Value = calificaciones.IdMateria });
-                parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Periodo });
-                parametros.Add(new SqlParameter { ParameterName = "@Periodo", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Parcial });
-                parametros.Add(new SqlParameter { ParameterName = "@Parcialo", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Matricula });
+                parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Matricula });
+                parametros.Add(new SqlParameter { ParameterName = "@Periodo", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Periodo });
+                parametros.Add(new SqlParameter { ParameterName = "@Parcial", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Parcial });
                 parametros.Add(new SqlParameter { ParameterName = "@Calificacion", SqlDbType = SqlDbType.Int, Value = calificaciones.Calificacion });
                 dac.ExecuteNonQuery("UpdateCalificaciones", parametros);
                 return 1;
