@@ -47,8 +47,8 @@ namespace reportesApi.Services
                     .Select(dataRow => new GetProfesorModel {
                         Id = int.Parse(dataRow["Id"].ToString()),
                         Nombre = dataRow["Nombre"].ToString(),
-                        ApPaterno = dataRow["ApellidoPaterno"].ToString(),
-                        ApMaterno = dataRow["ApellidoMaterno"].ToString(),
+                        ApPaterno = dataRow["ApPaterno"].ToString(),
+                        ApMaterno = dataRow["ApMaterno"].ToString(),
                         Direccion = dataRow["Direccion"].ToString(),
                         Estatus = dataRow["Estatus"].ToString(),
                         UsuarioRegistra = dataRow["UsuarioRegistra"].ToString(),
