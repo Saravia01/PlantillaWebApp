@@ -51,7 +51,8 @@ namespace reportesApi.Controllers
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.InsertCarrera(req);
+                objectResponse.message = "Data cargada con exito" ;
+                _carreraService.InsertCarrera(req);
 
             }
 
@@ -96,9 +97,10 @@ namespace reportesApi.Controllers
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _carreraService.UpdateCarrera(req);
+                objectResponse.message = "Data cargada con exito";
+                _carreraService.UpdateCarrera(req);
 
-                ;
+                
 
             }
 

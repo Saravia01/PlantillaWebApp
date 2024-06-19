@@ -48,7 +48,7 @@ namespace reportesApi.Services
                         Id = int.Parse(dataRow["Id"].ToString()),
                         NombreMateria = dataRow["NombreMateria"].ToString(),
                         ClaveMateria = dataRow["ClaveMateria"].ToString(),
-                        ClaveCarrera = dataRow["ClaveCarrera"].ToString(),
+                        ClaveCarrera = dataRow["IdCarrera"].ToString(),
                         Estatus = dataRow["Estatus"].ToString(),
                         UsuarioRegistra = dataRow["UsuarioRegistra"].ToString(),
                         FechaRegistro= dataRow["FechaRegistro"].ToString()
@@ -75,7 +75,7 @@ namespace reportesApi.Services
 
             try
             {
-                DataSet ds = dac.Fill("sp_insert_materia", parametros);
+                DataSet ds = dac.Fill("sp_insert_materias", parametros);
                 mensaje = ds.Tables[0].AsEnumerable().Select(dataRow => dataRow["mensaje"].ToString()).ToList()[0];
             }
             catch (Exception ex)
