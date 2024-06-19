@@ -16,7 +16,7 @@ namespace reportesApi.Services
             connection = settings.ConnectionString;
         }
 
-        public int InsertPersona(PersonaModel persona)
+        public int InsertPersona(InsertPersonaModel persona)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
@@ -44,7 +44,7 @@ namespace reportesApi.Services
             }
         }
 
-        public int UpdatePersona(PersonaModel persona)
+        public int UpdatePersona(UpdatePersonaModel persona)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
@@ -55,7 +55,7 @@ namespace reportesApi.Services
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int) { Value = persona.ID });
+                        cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int) { Value = persona.Id });
                         cmd.Parameters.Add(new SqlParameter("@Nombre", SqlDbType.VarChar) { Value = persona.Nombre });
                         cmd.Parameters.Add(new SqlParameter("@ApPaterno", SqlDbType.VarChar) { Value = persona.ApPaterno });
                         cmd.Parameters.Add(new SqlParameter("@ApMaterno", SqlDbType.VarChar) { Value = persona.ApMaterno });
