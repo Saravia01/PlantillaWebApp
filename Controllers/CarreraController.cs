@@ -88,7 +88,7 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateCarrera")]
+        [HttpPost("UpdateCarrera")]
         public IActionResult UpdateCarreras([FromBody] UpdateCarreraModel req )
         {
             var objectResponse = Helper.GetStructResponse();
@@ -110,7 +110,7 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteCarrera")]
+        [HttpPost("DeleteCarrera")]
         public IActionResult DeleteCarrera([FromBody] int id )
         {
             var objectResponse = Helper.GetStructResponse();
