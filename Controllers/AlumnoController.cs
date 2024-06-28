@@ -67,6 +67,8 @@ namespace reportesApi.Controllers
         public IActionResult GetAlumnos()
         {
             var objectResponse = Helper.GetStructResponse();
+            var resultado = _AlumnoService.GetAlumnos();
+
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
@@ -76,7 +78,6 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _AlumnoService.GetAlumnos();
                  objectResponse.response = resultado;
             }
 
@@ -85,7 +86,7 @@ namespace reportesApi.Controllers
                 objectResponse.message = ex.Message;
             }
 
-            return new JsonResult(objectResponse);
+            return new JsonResult(resultado);
         }
 
         [HttpPut("UpdateAlumno")]
