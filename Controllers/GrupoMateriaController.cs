@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class AlumnoController: ControllerBase
+    public class GrupoMateriaController: ControllerBase
     {
    
-        private readonly AlumnoService _AlumnoService;
-        private readonly ILogger<AlumnoController> _logger;
+        private readonly GrupoAlumnoService _GrupoMateriaService;
+        private readonly ILogger<GrupoMateriaController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public AlumnoController(AlumnoService AlumnoService, ILogger<AlumnoController> logger, IJwtAuthenticationService authService) {
-            _AlumnoService = AlumnoService;
+        public GrupoMateriaController(GrupoM GrupoMateriaService, ILogger<GrupoMateriaController> logger, IJwtAuthenticationService authService) {
+            _GrupoMateriaService = GrupoMateriaService;
             _logger = logger;
        
             _authService = authService;
@@ -43,15 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("InsertAlumno")]
-        public IActionResult InsertAlumnos([FromBody] InsertAlumnoModel req )
+        [HttpPost("InsertGrupoMateria")]
+        public IActionResult InsertGrupoMateria([FromBody] InsertGrupoMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _AlumnoService.InsertAlumno(req);
+                objectResponse.message = _GrupoMateriaService.InsertGrupoMateria(req);
 
             }
 
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("GetAlumnos")]
-        public IActionResult GetAlumnos()
+        [HttpGet("GetGrupoMateria")]
+        public IActionResult GetGrupoMateria()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -76,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _AlumnoService.GetAlumnos();
+                 var resultado = _GrupoMateriaService.GetGrupoMateria();
                  objectResponse.response = resultado;
             }
 
@@ -88,15 +88,15 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("UpdateAlumno")]
-        public IActionResult UpdateAlumnos([FromBody] UpdateAlumnoModel req )
+        [HttpPut("UpdateGrupoMateria")]
+        public IActionResult UpdateGrupoMateria([FromBody] UpdateGrupoMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _AlumnoService.UpdateAlumno(req);
+                objectResponse.message = _GrupoMateriaService.UpdateGrupoMateria(req);
 
                 ;
 
@@ -110,26 +110,6 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("DeleteAlumno")]
-        public IActionResult DeleteAlumno([FromBody] int id )
-        {
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-                _AlumnoService.DeleteAlumno(id);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-            return new JsonResult(objectResponse);
-        }
+      
     }
 }
