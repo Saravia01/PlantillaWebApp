@@ -96,7 +96,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdateCalificaciones")]
+         [HttpPut("UpdateCalificaciones")]
         public IActionResult UpdateCalificaciones([FromBody] CalificacionesModel calificacion)
         {
 
@@ -129,7 +129,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteCalificaciones")]
+         [HttpDelete("DeleteCalificaciones")]
         public IActionResult DeleteCalificaciones([FromBody] CalificacionesModel calificacion)
         {
 

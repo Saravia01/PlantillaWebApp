@@ -96,7 +96,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdateCarreras")]
+         [HttpPut("UpdateCarreras")]
         public IActionResult UpdateCarreras([FromBody] CarrerasModel carreras)
         {
 
@@ -129,7 +129,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DelateCarreras")]
+         [HttpDelete("DelateCarreras")]
         public IActionResult DelateCarreras([FromBody] CarrerasModel carreras)
         {
 

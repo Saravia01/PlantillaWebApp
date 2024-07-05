@@ -96,7 +96,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdateMateriasAlum")]
+         [HttpPut("UpdateMateriasAlum")]
         public IActionResult UpdateGruposAlum([FromBody] MateriasAlumnosModel materiasalum)
         {
 
@@ -129,7 +129,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteMateriasAlum")]
+         [HttpDelete("DeleteMateriasAlum")]
         public IActionResult DeleteGruposAlum([FromBody] MateriasAlumnosModel materiasalum)
         {
 

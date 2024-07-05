@@ -96,7 +96,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdatePersonas")]
+         [HttpPut("UpdatePersonas")]
         public IActionResult UpdatePersonas([FromBody] PersonaModel persona)
         {
 
@@ -129,7 +129,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DelatePersona")]
+         [HttpDelete("DelatePersona")]
         public IActionResult DelatePersona([FromBody] PersonaModel persona)
         {
 

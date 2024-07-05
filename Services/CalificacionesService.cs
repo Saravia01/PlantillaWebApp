@@ -27,6 +27,7 @@ namespace reportesApi.Services
                 parametros.Add(new SqlParameter { ParameterName = "@IdMateria", SqlDbType = SqlDbType.Int, Value = calificaciones.IdMateria });
                 parametros.Add(new SqlParameter { ParameterName = "@Periodo", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Periodo});
                 parametros.Add(new SqlParameter { ParameterName = "@Parcial", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Parcial});
+                 parametros.Add(new SqlParameter { ParameterName = "@Materia", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Materia});
                 parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Matricula });
                 parametros.Add(new SqlParameter { ParameterName = "@Calificacion", SqlDbType = SqlDbType.Int, Value = calificaciones.Calificacion });
                 dac.ExecuteNonQuery("InsertCalificaciones", parametros);
@@ -58,8 +59,9 @@ namespace reportesApi.Services
                         lista.Add(new CalificacionesModel{
                             Id  = int.Parse(row["Id"].ToString()),
                             IdMateria  = int.Parse(row["IdMateria"].ToString()),
-                           Matricula = row["Matricula"].ToString(),
+                            Matricula = row["Matricula"].ToString(),
                             Periodo = row["Periodo"].ToString(),
+                            Materia = row["Materia"].ToString(),
                             Parcial = row["Parcial"].ToString(),
                             Calificacion = int.Parse(row["Calificacion"].ToString()),
                         });
@@ -84,6 +86,7 @@ namespace reportesApi.Services
                 parametros.Add(new SqlParameter { ParameterName = "@IdMateria", SqlDbType = SqlDbType.Int, Value = calificaciones.IdMateria });
                 parametros.Add(new SqlParameter { ParameterName = "@Matricula", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Matricula });
                 parametros.Add(new SqlParameter { ParameterName = "@Periodo", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Periodo });
+                parametros.Add(new SqlParameter { ParameterName = "@Materia", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Materia });
                 parametros.Add(new SqlParameter { ParameterName = "@Parcial", SqlDbType = SqlDbType.VarChar, Value = calificaciones.Parcial });
                 parametros.Add(new SqlParameter { ParameterName = "@Calificacion", SqlDbType = SqlDbType.Int, Value = calificaciones.Calificacion });
                 dac.ExecuteNonQuery("UpdateCalificaciones", parametros);

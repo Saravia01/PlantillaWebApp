@@ -37,6 +37,7 @@ namespace reportesApi.Controllers
 
 
             var objectResponse = Helper.GetStructResponse();
+            var resultado = _AlumnosService.GetAlumnos();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
@@ -46,10 +47,10 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _AlumnosService.GetAlumnos();
+                
                 objectResponse.response = resultado;
           
-                return new JsonResult(objectResponse);
+                return new JsonResult(resultado);
 
             }
 
@@ -59,7 +60,7 @@ namespace reportesApi.Controllers
             }
 
 
-            return new JsonResult(objectResponse);
+            return new JsonResult(resultado);
 
         }
 
@@ -96,7 +97,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdateAlumnos")]
+         [HttpPut("UpdateAlumnos")]
         public IActionResult UpdateAlumnos([FromBody] AlumnosModel alumnos)
         {
 
@@ -129,7 +130,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteAlumnos")]
+         [HttpDelete("DeleteAlumnos")]
         public IActionResult DeleteAlumnos([FromBody] AlumnosModel alumnos)
         {
 
@@ -161,6 +162,16 @@ namespace reportesApi.Controllers
 
         }
     }
+
+  internal class HttpUpdateAttribute : Attribute
+  {
+    public HttpUpdateAttribute(string v)
+    {
+      V = v;
+    }
+
+    public string V { get; }
+  }
 }
 
 

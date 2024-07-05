@@ -96,7 +96,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("UpdateGrupos")]
+         [HttpPut("UpdateGrupos")]
         public IActionResult UpdateGrupos([FromBody] GruposModel grupos)
         {
 
@@ -129,7 +129,7 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPost("DeleteGrupos")]
+         [HttpDelete("DeleteGrupos")]
         public IActionResult DeleteGrupos([FromBody] GruposModel grupos)
         {
 
