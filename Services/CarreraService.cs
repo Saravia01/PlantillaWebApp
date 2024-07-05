@@ -15,20 +15,14 @@ using System.Linq;
 using System.Text;
 namespace reportesApi.Services
 {
-    public class CarrerasService
+    public class CarreraService
     {
         private  string connection;
-<<<<<<< HEAD:Services/CarrerasService.cs
-        
-        
-        public CarrerasService(IMarcatelDatabaseSetting settings)
-=======
         private readonly IWebHostEnvironment _webHostEnvironment;
         private ArrayList parametros = new ArrayList();
 
 
         public CarreraService(IMarcatelDatabaseSetting settings, IWebHostEnvironment webHostEnvironment)
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
         {
              connection = settings.ConnectionString;
 
@@ -36,41 +30,20 @@ namespace reportesApi.Services
              
         }
 
-<<<<<<< HEAD:Services/CarrerasService.cs
-        public int InsertCarerras(CarrerasModel carreras)
-=======
-        public List<GetCarreraModel> GetCarreras()
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
+        public int Insertcarreras(CarrerasModel Carrera)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            GetCarreraModel persona = new GetCarreraModel();
+            GetCarrerasModel persona = new GetCarreraModel();
 
             List<GetCarreraModel> lista = new List<GetCarreraModel>();
             try
             {
-<<<<<<< HEAD:Services/CarrerasService.cs
-                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave});
-                parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
-                dac.ExecuteNonQuery("InsertCarerras", parametros);
+               
+                parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = Carrera.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = Carrera.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value = Carrera.Clave });
+                dac.ExecuteNonQuery("Insertcarreras", parametros);
                 return 1;
-=======
-                parametros = new ArrayList();
-                DataSet ds = dac.Fill("sp_get_carreras", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-
-                  lista = ds.Tables[0].AsEnumerable()
-                    .Select(dataRow => new GetCarreraModel {
-                        Id = int.Parse(dataRow["Id"].ToString()),
-                        NombreCarrera = dataRow["NombreCarrera"].ToString(),
-                        Abreviatura = dataRow["Abreviatura"].ToString(),
-                        Estatus = dataRow["Estatus"].ToString(),
-                        UsuarioRegistra = dataRow["UsuarioRegistra"].ToString(),
-                        FechaRegistro= dataRow["FechaRegistro"].ToString()
-                    }).ToList();
-                }
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
             }
             catch (Exception ex)
             {
@@ -79,7 +52,7 @@ namespace reportesApi.Services
             return lista;
         }
 
-        public string InsertCarrera(InsertCarreraModel carrera)
+        public List<CarrerasModel> getcarreras ()
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
@@ -91,9 +64,8 @@ namespace reportesApi.Services
 
             try
             {
-<<<<<<< HEAD:Services/CarrerasService.cs
             
-                DataSet ds = dac.Fill("GetCarreras", parametros);
+                DataSet ds = dac.Fill("getcarreras", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -101,8 +73,8 @@ namespace reportesApi.Services
                         lista.Add(new CarrerasModel){
                             Id  = int.Parse(row["Id"].ToString()),
                             Nombre  = row["Nombre"].ToString(),
-                            Clave = row["Clave"].ToString(),
                             Usuario = row["Usuario"].ToString(),
+                            Clave = row["Clave"].ToString(),
                             Estatus = int.Parse(row["Estatus"].ToString()),
  
                 DataSet ds = dac.Fill("sp_insert_carrera", parametros);
@@ -141,20 +113,19 @@ namespace reportesApi.Services
 
             return mensaje;
         }
-
-<<<<<<< HEAD:Services/CarrerasService.cs
-         public int UpdateCarreras(CarrerasModel carreras)
+        public int Updatecarrera(CarrerasModel carreras)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = 1 });
+                parametros.Add(new SqlParameter { ParameterName = "@ID", SqlDbType = SqlDbType.Int, Value = 1 });
                 parametros.Add(new SqlParameter { ParameterName = "@Nombre", SqlDbType = SqlDbType.VarChar, Value = carreras.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@Clave", SqlDbType = SqlDbType.VarChar, Value =carreras.Clave });
+                parametros.Add(new SqlParameter { ParameterName = "@clave", SqlDbType = SqlDbType.VarChar, Value = carreras.Clave });
+                parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.Int, Value = 1 });
                 parametros.Add(new SqlParameter { ParameterName = "@Usuario", SqlDbType = SqlDbType.VarChar, Value = carreras.Usuario });
-                parametros.Add(new SqlParameter { ParameterName = "@Estatus", SqlDbType = SqlDbType.VarChar, Value = 1 });
-                dac.ExecuteNonQuery("UpdateCarreras", parametros);
+
+                dac.ExecuteNonQuery("Updatecarrera", parametros);
                 return 1;
             }
             catch (Exception ex)
@@ -164,11 +135,8 @@ namespace reportesApi.Services
             }
             
         }
-
-        public int DelateCarreras(int Id)
-=======
-        public void DeleteCarrera(int id)
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
+        
+          public int Deletecarrera(int Id)
         {
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             parametros = new ArrayList();
@@ -178,13 +146,10 @@ namespace reportesApi.Services
 
             try
             {
-<<<<<<< HEAD:Services/CarrerasService.cs
-                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.VarChar, Value = Id });
-                dac.ExecuteNonQuery("DelateCarreras", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = Id });
+               
+                dac.ExecuteNonQuery("Deletecarrera", parametros);
                 return 1;
-=======
-                dac.ExecuteNonQuery("sp_delete_carreras", parametros);
->>>>>>> a6188d3f56bd959348c00796715e211e00072b5c:Services/CarreraService.cs
             }
             catch (Exception ex)
             {
