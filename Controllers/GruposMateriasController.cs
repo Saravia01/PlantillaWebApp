@@ -96,8 +96,8 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpPut("UpdateCalificaciones")]
-        public IActionResult UpdateCalificaciones([FromBody] CalificacionesModel calificacion)
+         [HttpPut("UpdateGruposMaterias")]
+        public IActionResult Update([FromBody] GruposMateriasModel gm)
         {
 
 
@@ -111,7 +111,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _CalificacionesService.UpdateCalificaciones(calificacion);
+                var resultado = _GruposMateriasService.UpdateGruposMaterias(gm);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
@@ -129,8 +129,8 @@ namespace reportesApi.Controllers
         }
 
         
-         [HttpDelete("DeleteCalificaciones")]
-        public IActionResult DeleteCalificaciones([FromBody] CalificacionesModel calificacion)
+         [HttpDelete("DeleteGruposMaterias")]
+        public IActionResult DeleteCalificaciones([FromBody] GruposMateriasModel gm)
         {
 
 
@@ -144,7 +144,7 @@ namespace reportesApi.Controllers
 
                 var memory = new MemoryStream();
                 // Llamando a la función y recibiendo los dos valores.
-                var resultado = _CalificacionesService.DeleteCalificaciones(calificacion.Id);
+                var resultado = _GruposMateriasService.DeleteGruposMaterias(gm.Id);
                 objectResponse.response = resultado;
           
                 return new JsonResult(objectResponse);
