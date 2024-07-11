@@ -18,11 +18,11 @@ namespace reportesApi.Controllers
 {
    
     [Route("api")]
-    public class GrupoAlumnoController: ControllerBase
+    public class GrupoMateriaController: ControllerBase
     {
    
-        private readonly GrupoAlumnoService _GrupoAlumnoService;
-        private readonly ILogger<GrupoAlumnoController> _logger;
+        private readonly GrupoAlumnoService _GrupoMateriaService;
+        private readonly ILogger<GrupoMateriaController> _logger;
   
         private readonly IJwtAuthenticationService _authService;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -30,8 +30,8 @@ namespace reportesApi.Controllers
 
         Encrypt enc = new Encrypt();
 
-        public GrupoAlumnoController(GrupoAlumnoService GrupoAlumnoService, ILogger<GrupoAlumnoController> logger, IJwtAuthenticationService authService) {
-            _GrupoAlumnoService = GrupoAlumnoService;
+        public GrupoMateriaController(GrupoM GrupoMateriaService, ILogger<GrupoMateriaController> logger, IJwtAuthenticationService authService) {
+            _GrupoMateriaService = GrupoMateriaService;
             _logger = logger;
        
             _authService = authService;
@@ -43,15 +43,15 @@ namespace reportesApi.Controllers
         }
 
 
-        [HttpPost("sp_insert_gruposalumnos")]
-        public IActionResult InsertGrupoAlumno([FromBody] InsertGrupoAlumnoModel req )
+        [HttpPost("InsertGrupoMateria")]
+        public IActionResult InsertGrupoMateria([FromBody] InsertGrupoMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _GrupoAlumnoService.InsertGrupoAlumno(req);
+                objectResponse.message = _GrupoMateriaService.InsertGrupoMateria(req);
 
             }
 
@@ -63,8 +63,8 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpGet("[sp_get_gruposalumnos")]
-        public IActionResult GetGrupoAlumno()
+        [HttpGet("GetGrupoMateria")]
+        public IActionResult GetGrupoMateria()
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -76,7 +76,7 @@ namespace reportesApi.Controllers
 
                 // Llamando a la función y recibiendo los dos valores.
                 
-                 var resultado = _GrupoAlumnoService.GetGrupoAlumno();
+                 var resultado = _GrupoMateriaService.GetGrupoMateria();
                  objectResponse.response = resultado;
             }
 
@@ -88,15 +88,15 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpPut("sp_update_gruposalumnos")]
-        public IActionResult UpdateGrupoAlumno([FromBody] UpdateGrupoAlumnoModel req )
+        [HttpPut("UpdateGrupoMateria")]
+        public IActionResult UpdateGrupoMateria([FromBody] UpdateGrupoMateriaModel req )
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = _GrupoAlumnoService.UpdateGrupoAlumno(req);
+                objectResponse.message = _GrupoMateriaService.UpdateGrupoMateria(req);
 
                 ;
 
@@ -110,26 +110,6 @@ namespace reportesApi.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [HttpDelete("sp_delete_gruposalumnos")]
-        public IActionResult DeleteGrupoAlumno([FromBody] int id )
-        {
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "data cargado con exito";
-
-                _GrupoAlumnoService.DeleteGrupoAlumno(id);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                objectResponse.message = ex.Message;
-            }
-
-            return new JsonResult(objectResponse);
-        }
+      
     }
 }
